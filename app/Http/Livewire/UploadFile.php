@@ -14,26 +14,23 @@ class UploadFile extends Component
     public $file;
     public $inputId = 0;
     public $images;
+    public $uploadSuccess = false;
+
     public function render()
     {
         return view('livewire.upload-file');
     }
 
-    public function mount()
+    public function updatedFile()
     {
-        $rawImages = File::all();
-        $images = [];
-        foreach ($rawImages as $image) {
-            array_push($images, Storage::url($image->path));
-        }
-        $this->images = $images;
-
+        $this->uploadSuccess = false;
     }
+
 
     public function upload()
     {
         $this->validate([
-            'file' => 'max:1024'
+            'file' => 'image|max:1024'
         ]);
 
         $filepath = $this->file->store('public/images');
@@ -44,6 +41,6 @@ class UploadFile extends Component
         ]);
         $this->reset('file');
         $this->inputId++;
-        $this->mount();
+        $this->uploadSuccess = true;
     }
 }
