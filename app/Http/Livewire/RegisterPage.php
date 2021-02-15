@@ -43,5 +43,6 @@ class RegisterPage extends Component
         ]);
         Auth::attempt(['email' => $this->email, 'password' => $this->password]);
         $this->reset();
+        return redirect()->route('home');
     }
 }

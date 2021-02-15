@@ -17,7 +17,7 @@
         </div>
         <div>
             @auth()
-                <a class="text-lg px-2">{{ auth()->user()->name }}</a>
+                <a href="{{ route('dashboard') }}" class="text-lg px-2">{{ auth()->user()->name }}</a>
                 <a href="{{ route('logout') }}" class="text-lg px-2 hover:opacity-60">Logout</a>
             @endauth
 

@@ -3,8 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\File;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 
 class UploadFile extends Component
@@ -35,9 +35,10 @@ class UploadFile extends Component
 
         $filepath = $this->file->store('public/images');
         File::create([
-            'filename' => $this->file->getClientOriginalName(),
+            'filename' => Str::beforeLast($this->file->getClientOriginalName(), '.'),
             'path' => $filepath,
-            'user_id' => 1
+            'user_id' => auth()->id(),
+            'short_hash' => Str::random(12)
         ]);
         $this->reset('file');
         $this->inputId++;
